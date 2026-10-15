@@ -21,7 +21,6 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     """Menampilkan formulir login dan memproses autentikasi."""
