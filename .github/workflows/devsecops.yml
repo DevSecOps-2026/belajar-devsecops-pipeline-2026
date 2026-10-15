@@ -45,7 +45,6 @@ jobs:
 
   # ==========================================
   # CI JOB 3: Dependency Security (pip-audit)
-  # Posisi: Setelah Pylint Check
   # ==========================================
   dependency-security:
     name: Dependency Security Scan
@@ -77,13 +76,12 @@ jobs:
       - name: Build Docker Image
         run: docker build -t secure-flask-app:latest .
 
-      # Posisi: Container Security (Setelah Docker Build & Sebelum Deploy)
       - name: Container Security Scan (Trivy)
         run: trivy image --severity HIGH,CRITICAL --exit-code 0 secure-flask-app:latest
 
       - name: Deploy Container
         run: |
-          docker stop web-flask || true
-          docker rm web-flask || true
+          docker rm -f web-flask || true
+          sleep 2
           docker run -d -p 5000:5000 --name web-flask secure-flask-app:latest
           docker ps | grep web-flask
