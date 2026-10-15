@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+
+        <title>Sentinel Portal</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                font-family:
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Arial,
+                    sans-serif;
+                background: #f4f6f8;
+                color: #1f2937;
+            }
+
+            .container {
+                width: min(100% - 32px, 980px);
+                margin: 0 auto;
+                padding: 40px 0;
+            }
+
+            .header {
+                text-align: center;
+                margin-bottom: 28px;
+            }
+
+            .badge {
+                display: inline-block;
+                margin-bottom: 12px;
+                padding: 6px 12px;
+                border-radius: 999px;
+                background: #e8f1ff;
+                color: #1d4ed8;
+                font-size: 0.8rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+            }
+
+            .header h1 {
+                margin: 0;
+                font-size: 2.2rem;
+                color: #111827;
+            }
+
+            .header p {
+                margin: 10px auto 0;
+                max-width: 650px;
+                color: #6b7280;
+                line-height: 1.6;
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+
+            .card {
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 28px;
+                border: 1px solid #e5e7eb;
+                box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+            }
+
+            .login-card {
+                grid-column: span 2;
+            }
+
+            .card h2 {
+                margin: 0 0 8px;
+                color: #111827;
+                font-size: 1.35rem;
+            }
+
+            .card-description {
+                margin: 0 0 22px;
+                color: #6b7280;
+                font-size: 0.95rem;
+                line-height: 1.5;
+            }
+
+            .form-group {
+                margin-bottom: 16px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 7px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #374151;
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                width: 100%;
+                padding: 12px 14px;
+                border: 1px solid #d1d5db;
+                border-radius: 9px;
+                outline: none;
+                font-size: 0.95rem;
+                background: #ffffff;
+                transition:
+                    border-color 0.2s ease,
+                    box-shadow 0.2s ease;
+            }
+
+            input[type="text"]:focus,
+            input[type="password"]:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            }
+
+            .login-button {
+                width: 100%;
+                padding: 12px 16px;
+                border: 0;
+                border-radius: 9px;
+                background: #2563eb;
+                color: #ffffff;
+                font-size: 0.95rem;
+                font-weight: 700;
+                cursor: pointer;
+                transition:
+                    background 0.2s ease,
+                    transform 0.2s ease;
+            }
+
+            .login-button:hover {
+                background: #1d4ed8;
+                transform: translateY(-1px);
+            }
+
+            .alert {
+                padding: 12px 14px;
+                margin-bottom: 18px;
+                border-radius: 9px;
+                font-size: 0.9rem;
+                line-height: 1.4;
+            }
+
+            .success {
+                background: #dcfce7;
+                color: #166534;
+                border: 1px solid #bbf7d0;
+            }
+
+            .danger {
+                background: #fee2e2;
+                color: #991b1b;
+                border: 1px solid #fecaca;
+            }
+
+            .route-card {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            .route-icon {
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 16px;
+                border-radius: 10px;
+                background: #eff6ff;
+                color: #2563eb;
+                font-weight: 800;
+                font-size: 1.1rem;
+            }
+
+            .route-path {
+                display: inline-block;
+                margin: 4px 0 12px;
+                padding: 6px 9px;
+                border-radius: 7px;
+                background: #f3f4f6;
+                color: #374151;
+                font-family: "Courier New", monospace;
+                font-size: 0.85rem;
+            }
+
+            .route-card p {
+                margin: 0 0 20px;
+                color: #6b7280;
+                font-size: 0.92rem;
+                line-height: 1.6;
+            }
+
+            .route-button {
+                display: inline-block;
+                width: 100%;
+                padding: 11px 14px;
+                border-radius: 9px;
+                background: #111827;
+                color: #ffffff;
+                text-align: center;
+                text-decoration: none;
+                font-size: 0.9rem;
+                font-weight: 600;
+                transition:
+                    background 0.2s ease,
+                    transform 0.2s ease;
+            }
+
+            .route-button:hover {
+                background: #374151;
+                transform: translateY(-1px);
+            }
+
+            .footer {
+                margin-top: 26px;
+                text-align: center;
+                color: #9ca3af;
+                font-size: 0.82rem;
+            }
+
+            @media (max-width: 700px) {
+                .grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .login-card {
+                    grid-column: span 1;
+                }
+
+                .header h1 {
+                    font-size: 1.8rem;
+                }
+
+                .container {
+                    padding: 24px 0;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <main class="container">
+            <header class="header">
+                <span class="badge">DevSecOps Laboratory</span>
+
+                <h1>Sentinel Portal</h1>
+
+                <p>
+                    Portal autentikasi dan monitoring sederhana untuk
+                    demonstrasi pipeline CI/CD berbasis GitHub Actions,
+                    Docker, dan self-hosted runner Ubuntu.
+                </p>
+            </header>
+
+            <section class="grid">
+                <!-- LOGIN -->
+                <div class="card login-card">
+                    <h2>Portal Login</h2>
+
+                    <p class="card-description">
+                        Masukkan kredensial untuk menguji proses autentikasi
+                        aplikasi Flask.
+                    </p>
+
+                    {% if message %}
+                    <div class="alert {{ status_class }}">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="/">
+                        <div class="form-group">
+                            <label for="username">Nama Pengguna</label>
+
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Masukkan nama pengguna"
+                                autocomplete="username"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Kata Sandi</label>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Masukkan kata sandi"
+                                autocomplete="current-password"
+                                required
+                            />
+                        </div>
+
+                        <button type="submit" class="login-button">
+                            Masuk ke Sentinel
+                        </button>
+                    </form>
+                </div>
+
+                <!-- SENTINEL PULSE -->
+                <div class="card route-card">
+                    <div>
+                        <div class="route-icon">01</div>
+
+                        <h2>Sentinel Pulse</h2>
+
+                        <span class="route-path">
+                            /sentinel/pulse
+                        </span>
+
+                        <p>
+                            Menampilkan heartbeat aplikasi dan informasi
+                            lingkungan deployment untuk memastikan service
+                            sedang berjalan.
+                        </p>
+                    </div>
+
+                    <a
+                        class="route-button"
+                        href="/sentinel/pulse"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Cek Sentinel Pulse
+                    </a>
+                </div>
+
+                <!-- DEPLOYMENT MANIFEST -->
+                <div class="card route-card">
+                    <div>
+                        <div class="route-icon">02</div>
+
+                        <h2>Deployment Manifest</h2>
+
+                        <span class="route-path">
+                            /deployment-manifest
+                        </span>
+
+                        <p>
+                            Menampilkan informasi versi aplikasi, nama
+                            container, serta metode deployment yang digunakan
+                            oleh pipeline.
+                        </p>
+                    </div>
+
+                    <a
+                        class="route-button"
+                        href="/deployment-manifest"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Lihat Deployment
+                    </a>
+                </div>
+            </section>
+
+            <footer class="footer">
+                Sentinel Flask Application · GitHub Actions · Docker
+            </footer>
+        </main>
+    </body>
+</html>
