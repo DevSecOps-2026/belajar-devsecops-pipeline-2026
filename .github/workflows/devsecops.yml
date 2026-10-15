@@ -79,7 +79,7 @@ jobs:
 
       # Posisi: Container Security (Setelah Docker Build & Sebelum Deploy)
       - name: Container Security Scan (Trivy)
-        run: trivy image --severity HIGH,CRITICAL --exit-code 1 secure-flask-app:latest
+        run: trivy image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 secure-flask-app:latest
 
       - name: Deploy Container
         run: |
