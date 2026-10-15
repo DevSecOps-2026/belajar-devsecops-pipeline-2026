@@ -79,12 +79,7 @@ jobs:
 
       # Posisi: Container Security (Setelah Docker Build & Sebelum Deploy)
       - name: Container Security Scan (Trivy)
-        run: |
-          if ! command -v trivy &> /dev/null; then
-            curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /tmp
-            sudo mv /tmp/trivy /usr/local/bin/
-          fi
-          trivy image --severity HIGH,CRITICAL --exit-code 1 secure-flask-app:latest
+        run: trivy image --severity HIGH,CRITICAL --exit-code 1 secure-flask-app:latest
 
       - name: Deploy Container
         run: |
